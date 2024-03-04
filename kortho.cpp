@@ -338,7 +338,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "  -d         debug\n");
         return 1;
     }
-    while ((c = ketopt(&opt, argc, argv, 1, "q:t:o:k:m:s:n:p:d:", nullptr)) >= 0) {
+    while ((c = ketopt(&opt, argc, argv, 1, "q:t:o:k:m:s:n:p:d", nullptr)) >= 0) {
         switch (c) {
             case 'd':
                 debug = true;
