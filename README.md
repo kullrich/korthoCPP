@@ -5,7 +5,7 @@ korthoCPP calculates pairwise kmer jaccard distance between two peptide fasta fi
 
 ```
 git clone https://github.com/kullrich/korthoCPP.git
-cd korthoCPP && make
+cd korthoCPP && make clean && make
 ```
 
 ## Usage
