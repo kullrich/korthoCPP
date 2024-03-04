@@ -49,7 +49,7 @@ wget https://www.pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/Pseudomonas_ae
 wget https://www.pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/Pseudomonas_fluorescens_SBW25_116/Pseudomonas_fluorescens_SBW25_116.faa.gz
 gunzip Pseudomonas_aeruginosa_PAO1_107.faa.gz
 gunzip Pseudomonas_fluorescens_SBW25_116.faa.gz
-korthoCPP -q Pseudomonas_aeruginosa_PAO1_107.faa -t Pseudomonas_fluorescens_SBW25_116.faa -p 2
+./korthoCPP -q Pseudomonas_aeruginosa_PAO1_107.faa -t Pseudomonas_fluorescens_SBW25_116.faa -p 4
 head output.txt
 ```
 ```
