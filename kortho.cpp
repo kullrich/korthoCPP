@@ -313,8 +313,6 @@ std::vector<double> getJaccardByIntegerVector(
 }
 
 int main(int argc, char *argv[]) {
-    ketopt_t opt = KETOPT_INIT;
-    int c;
     int k = 6; // kmer size
     double m = 0.01; // min jaccard distance to report
     double s = 0.1; // sparse threshold to switch search strategy
@@ -324,6 +322,22 @@ int main(int argc, char *argv[]) {
     const char *filename_q = nullptr; // Query fasta file
     const char *filename_t = nullptr; // Target fasta file
     const char *filename_o = "output.txt"; // Default output filename
+    ketopt_t opt = KETOPT_INIT;
+    int c;
+    if (argc - opt.ind < 2) {
+        fprintf(stderr, "Usage: korthoCPP [options] -q <query.fasta> -t <target.fasta>\n");
+        fprintf(stderr, "Options:\n");
+        fprintf(stderr, "  -q FILE    query peptide fasta file\n");
+        fprintf(stderr, "  -t FILE    target peptide fasta file\n");
+        fprintf(stderr, "  -o FILE    output file to write jaccard distances\n");
+        fprintf(stderr, "  -k INT     kmer length [default: 6]\n");
+        fprintf(stderr, "  -m DOUBLE  min jaccard distance to report pair [default: 0.01]\n");
+        fprintf(stderr, "  -s DOUBLE  sparse threshold to switch search strategy [defualt: 0.1]\n");
+        fprintf(stderr, "  -n INT     number of kmers to check for sparse [default: 20]\n");
+        fprintf(stderr, "  -p INT     number of threads [default: 1]\n");
+        fprintf(stderr, "  -d         debug\n");
+        return 1;
+    }
     while ((c = ketopt(&opt, argc, argv, 1, "q:t:o:k:m:s:n:p:d:", nullptr)) >= 0) {
         switch (c) {
             case 'd':
@@ -357,20 +371,6 @@ int main(int argc, char *argv[]) {
                 std::cerr << "Unknown option: " << char(c) << std::endl;
                 return 1;
         }
-    }
-    if (argc - opt.ind < 1) {
-        fprintf(stderr, "Usage: korthoCPP [options] -q <query.fasta> -t <target.fasta>\n");
-        fprintf(stderr, "Options:\n");
-        fprintf(stderr, "  -q FILE    query peptide fasta file\n");
-        fprintf(stderr, "  -t FILE    target peptide fasta file\n");
-        fprintf(stderr, "  -o FILE    output file to write jaccard distances\n");
-        fprintf(stderr, "  -k INT     kmer length [default: 6]\n");
-        fprintf(stderr, "  -m DOUBLE  min jaccard distance to report pair [default: 0.01]\n");
-        fprintf(stderr, "  -s DOUBLE  sparse threshold to switch search strategy [defualt: 0.1]\n");
-        fprintf(stderr, "  -n INT     number of kmers to check for sparse [default: 20]\n");
-        fprintf(stderr, "  -p INT     number of threads [default: 1]\n");
-        fprintf(stderr, "  -d         debug\n");
-        return 1;
     }
     // Check if both filenames are provided
     if (filename_q == nullptr || filename_t == nullptr) {
